@@ -1,0 +1,248 @@
+/* 由 configs/chapter1_levels.json 自动同步 */
+window.CHAPTER1_DATA = {
+  "chapter": 1,
+  "title": "第1章 · 小区花坛",
+  "unlockCat": "yinxiaomei",
+  "legend": {
+    ".": "草地/可走空地",
+    "#": "灌木/围栏（不可通行）",
+    "~": "小水坑（猫怕水；推入重物变成垫脚石）",
+    "B": "可推重物（纸箱/花盆/洗衣篮）",
+    "F": "小鱼干（每关3条）",
+    "S": "大橘起点",
+    "G": "被困小猫终点",
+    "D": "打盹看门狗（位置，视线配置在 dogs 中）"
+  },
+  "levels": [
+    {
+      "id": "1-1",
+      "name": "初出纸箱",
+      "intent": "纯移动教学：30秒内学会点击/滑动走格与吃小鱼干，保证零挫败首次通关。",
+      "mechanic": "移动与收集",
+      "requiredCats": ["dajv"],
+      "parSteps": 8,
+      "firstClearGold": 25,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "######",
+        "#S.F.#",
+        "###.##",
+        "#.F.F#",
+        "#.##G#",
+        "######"
+      ]
+    },
+    {
+      "id": "1-2",
+      "name": "挡路的大纸箱",
+      "intent": "空间教学「推」：只有一条路被箱子堵住，推开它即可救出小猫。",
+      "mechanic": "基础推箱",
+      "requiredCats": ["dajv"],
+      "parSteps": 10,
+      "firstClearGold": 25,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "######",
+        "#S.F.#",
+        "#.B..#",
+        "#.F#.#",
+        "#..#G#",
+        "######"
+      ],
+      "extraFish": [[4, 2]]
+    },
+    {
+      "id": "1-3",
+      "name": "小心墙角！",
+      "intent": "空间教学「卡死与撤销」：让玩家第一次意识到箱子推死角过不去，并体验免费无限撤销。",
+      "mechanic": "推箱方向与撤销",
+      "requiredCats": ["dajv"],
+      "parSteps": 11,
+      "firstClearGold": 25,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "######",
+        "#S...#",
+        "#.B#F#",
+        "#..#.#",
+        "#F.F.G",
+        "######"
+      ]
+    },
+    {
+      "id": "1-4",
+      "name": "小巷里的花盆",
+      "intent": "双箱分路：一个花盆挡住主路，另一个花盆守着藏小鱼干的小巷，需按顺序推开。",
+      "mechanic": "双箱分路",
+      "requiredCats": ["dajv"],
+      "parSteps": 19,
+      "firstClearGold": 25,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "#######",
+        "#S...F#",
+        "#.B..##",
+        "#..##.#",
+        "#F.B..#",
+        "#..#.G#",
+        "#######"
+      ],
+      "extraFish": [[5, 4]]
+    },
+    {
+      "id": "1-5",
+      "name": "推箱填坑",
+      "intent": "第1章核心「啊哈时刻」：猫怕水坑，但把纸箱推进水坑能当垫脚石！",
+      "mechanic": "推箱填水坑",
+      "requiredCats": ["dajv"],
+      "bonusCatTip": "银小妹（跳）二周目可直接跳过水坑",
+      "parSteps": 17,
+      "firstClearGold": 30,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "#######",
+        "#S...F#",
+        "#..B..#",
+        "###~###",
+        "#F...F#",
+        "#...#G#",
+        "#######"
+      ]
+    },
+    {
+      "id": "1-6",
+      "name": "双箱接力",
+      "intent": "深化填坑机制：两道水坑隔开三层花坛，需要依次推入两个箱子铺桥过河。",
+      "mechanic": "双水坑桥接",
+      "requiredCats": ["dajv"],
+      "parSteps": 22,
+      "firstClearGold": 25,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "#######",
+        "#S...F#",
+        "#..B..#",
+        "###~###",
+        "#F.B..#",
+        "###~###",
+        "#F...G#",
+        "#######"
+      ]
+    },
+    {
+      "id": "1-7",
+      "name": "大橘的抉择",
+      "intent": "分岔路线设计：下方直接推箱填坑可快速过关(1星)，绕去上方水坑区才能拿全3条小鱼干(3星)。",
+      "mechanic": "主路与支路步数优化",
+      "requiredCats": ["dajv"],
+      "parSteps": 25,
+      "firstClearGold": 25,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "#######",
+        "#F#F..#",
+        "#~#.B.#",
+        "#S....#",
+        "#.B####",
+        "#.~F.G#",
+        "#######"
+      ]
+    },
+    {
+      "id": "1-8",
+      "name": "花坛迷阵",
+      "intent": "章末小高峰：先推开挡路箱再把第二个箱子绕过路口推进水坑，同时不能堵死鱼干通道。",
+      "mechanic": "多箱调度",
+      "requiredCats": ["dajv"],
+      "bonusCatTip": "银小妹可直接跳过水坑",
+      "parSteps": 20,
+      "firstClearGold": 30,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [],
+      "grid": [
+        "#######",
+        "#S..B.#",
+        "#.#.#F#",
+        "#..B..#",
+        "###~###",
+        "#F..FG#",
+        "#######"
+      ]
+    },
+    {
+      "id": "1-9",
+      "name": "打盹的大黄狗",
+      "intent": "新要素预告：大黄狗整排封锁了去路，推洗衣篮挡住狗的视线即可安全绕过！",
+      "mechanic": "推物遮挡视线",
+      "requiredCats": ["dajv"],
+      "bonusCatTip": "菲菲（盯）可直接定身大黄狗",
+      "parSteps": 14,
+      "firstClearGold": 30,
+      "repeatGold": 8,
+      "firstClearIntimacy": 15,
+      "threeStarBonusIntimacy": 5,
+      "dogs": [
+        { "x": 3, "y": 1, "dx": 0, "dy": 1, "range": 5, "desc": "向下死死盯住整列(3,2)~(3,6)" }
+      ],
+      "grid": [
+        "#######",
+        "#S.#D##",
+        "#.B...#",
+        "#....F#",
+        "#F###.#",
+        "#...FG#",
+        "#######"
+      ]
+    },
+    {
+      "id": "1-10",
+      "name": "大救援：外机上的银小妹",
+      "intent": "第1章大结局：综合「推箱挡狗视线 + 推箱填水坑 + 清开终极障碍」，救出银小妹！",
+      "mechanic": "综合大救援",
+      "requiredCats": ["dajv"],
+      "parSteps": 24,
+      "firstClearGold": 60,
+      "repeatGold": 12,
+      "firstClearIntimacy": 25,
+      "threeStarBonusIntimacy": 10,
+      "unlockReward": "银小妹（银渐层）",
+      "dogs": [
+        { "x": 4, "y": 1, "dx": 0, "dy": 1, "range": 2, "desc": "向下盯住(4,2)~(4,3)" }
+      ],
+      "grid": [
+        "########",
+        "#S.#D###",
+        "#.B....#",
+        "#..B..F#",
+        "###~####",
+        "#F..B.F#",
+        "#..#..G#",
+        "########"
+      ]
+    }
+  ]
+}
+;

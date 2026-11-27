@@ -1,0 +1,25 @@
+{
+  "intimacyCurve": [
+    { "level": 1, "nextExp": 100, "cumExp": 0, "goldReward": 0, "unlock": "主动技能" },
+    { "level": 2, "nextExp": 200, "cumExp": 100, "goldReward": 100, "unlock": "猫条x1" },
+    { "level": 3, "nextExp": 350, "cumExp": 300, "goldReward": 150, "unlock": "被动技能（可助战）" },
+    { "level": 4, "nextExp": 550, "cumExp": 650, "goldReward": 200, "unlock": "猫罐头x1" },
+    { "level": 5, "nextExp": 800, "cumExp": 1200, "goldReward": 250, "unlock": "主动技能强化 + 专属小饰品" },
+    { "level": 6, "nextExp": 1100, "cumExp": 2000, "goldReward": 300, "unlock": "猫条x2" },
+    { "level": 7, "nextExp": 1500, "cumExp": 3100, "goldReward": 350, "unlock": "羁绊技" },
+    { "level": 8, "nextExp": 2000, "cumExp": 4600, "goldReward": 400, "unlock": "猫罐头x1" },
+    { "level": 9, "nextExp": 2600, "cumExp": 6600, "goldReward": 450, "unlock": "专属相框贴纸" },
+    { "level": 10, "nextExp": 0, "cumExp": 9200, "goldReward": 500, "unlock": "专属皮肤 + 家园特殊动作" }
+  ],
+  "cats": [
+    { "id": "dajv", "name": "大橘", "breed": "橘猫", "verb": "推", "unlockType": "init", "unlockParam": 0, "favoriteFood": "鸡肉罐头", "homeBonus": "feedIntimacy+10%" },
+    { "id": "yinxiaomei", "name": "银小妹", "breed": "银渐层", "verb": "跳", "unlockType": "main_stage", "unlockParam": "1-10", "favoriteFood": "鳕鱼冻干", "homeBonus": "preferHighFurniture" },
+    { "id": "xiaobuding", "name": "小布丁", "breed": "布偶猫", "verb": "躺", "unlockType": "main_stage", "unlockParam": "2-10", "favoriteFood": "羊奶布丁", "homeBonus": "petIntimacy*1.2" },
+    { "id": "xiaoluo", "name": "小罗", "breed": "暹罗猫", "verb": "叫", "unlockType": "main_stage", "unlockParam": "3-10", "favoriteFood": "金枪鱼猫条", "homeBonus": "dailyGreetGold+15" },
+    { "id": "wukong", "name": "悟空", "breed": "简州猫", "verb": "听", "unlockType": "main_stage", "unlockParam": "4-10", "favoriteFood": "清水煮羊肉", "homeBonus": "visitorGiftQualityUp" },
+    { "id": "jintiantian", "name": "金舔舔", "breed": "金渐层", "verb": "舔", "unlockType": "sign_in", "unlockParam": 3, "favoriteFood": "三文鱼猫条", "homeBonus": "lickedCatIntimacy+5" },
+    { "id": "feifei", "name": "菲菲", "breed": "三花猫", "verb": "盯", "unlockType": "sign_in", "unlockParam": 7, "favoriteFood": "高级三文鱼罐头", "homeBonus": "petLimit-1_intimacy*2" },
+    { "id": "tangmu", "name": "汤姆", "breed": "蓝白猫", "verb": "拍", "unlockType": "ad_count", "unlockParam": 10, "favoriteFood": "牛肉冻干", "homeBonus": "knockDropGold+10" },
+    { "id": "ali", "name": "阿狸", "breed": "狸花猫", "verb": "爬", "unlockType": "gold_shop", "unlockParam": 8500, "favoriteFood": "鸡胸肉干", "homeBonus": "nightlyLootMaterial" }
+  ]
+}

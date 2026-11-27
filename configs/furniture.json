@@ -1,0 +1,24 @@
+{
+  "tiers": [
+    { "tier": "starter", "priceRange": "300-500", "comfort": "10-20", "notes": "前2周日常小件消耗" },
+    { "tier": "theme", "priceRange": "800-1500", "comfort": "30-60", "notes": "中期主题套装（日式/田园/糖果/国潮）" },
+    { "tier": "luxury", "priceRange": "1800-3500", "comfort": "80-150", "notes": "中后期大型互动家具与院子外观" },
+    { "tier": "prestige_sink", "priceRange": "1200-15000", "comfort": "100-300", "notes": "90天长线尾端消耗（每日盲盒/金猫雕塑/庭院皮肤）" }
+  ],
+  "items": [
+    { "id": "f_box_01", "name": "快递大纸箱", "tier": "starter", "zone": "frontyard", "goldCost": 300, "furballCost": 0, "comfort": 12 },
+    { "id": "f_scratch_01", "name": "剑麻猫抓板", "tier": "starter", "zone": "frontyard", "goldCost": 350, "furballCost": 2, "comfort": 14 },
+    { "id": "f_bowl_01", "name": "双格陶瓷饭盆", "tier": "starter", "zone": "frontyard", "goldCost": 420, "furballCost": 0, "comfort": 16 },
+    { "id": "f_bed_01", "name": "毛毡南瓜窝", "tier": "starter", "zone": "frontyard", "goldCost": 450, "furballCost": 5, "comfort": 20 },
+    { "id": "f_flower_01", "name": "向日葵花盆", "tier": "starter", "zone": "frontyard", "goldCost": 380, "furballCost": 0, "comfort": 15 },
+    { "id": "f_tree_01", "name": "三层马卡龙猫爬架", "tier": "theme", "zone": "frontyard", "goldCost": 950, "furballCost": 4, "comfort": 40 },
+    { "id": "f_pond_01", "name": "锦鲤小池塘", "tier": "theme", "zone": "garden", "goldCost": 1200, "furballCost": 0, "comfort": 50 },
+    { "id": "f_swing_01", "name": "藤编小秋千", "tier": "theme", "zone": "garden", "goldCost": 1100, "furballCost": 6, "comfort": 45 },
+    { "id": "f_sofa_01", "name": "奶油懒人沙发", "tier": "theme", "zone": "livingroom", "goldCost": 1400, "furballCost": 8, "comfort": 58 },
+    { "id": "f_tv_01", "name": "复古鱼缸电视", "tier": "luxury", "zone": "livingroom", "goldCost": 2200, "furballCost": 0, "comfort": 90 },
+    { "id": "f_telescope_01", "name": "星空望远镜", "tier": "luxury", "zone": "rooftop", "goldCost": 2800, "furballCost": 0, "comfort": 120 },
+    { "id": "f_tent_01", "name": "天台露营小帐篷", "tier": "luxury", "zone": "rooftop", "goldCost": 3200, "furballCost": 12, "comfort": 140 },
+    { "id": "f_blindbox_daily", "name": "神秘家具盲盒（可重复）", "tier": "prestige_sink", "zone": "any", "goldCost": 1200, "furballCost": 0, "comfort": 25, "notes": "长线重复消耗，开出随机贴纸/猫罐头/装饰件" },
+    { "id": "f_statue_gold", "name": "招财大橘金像", "tier": "prestige_sink", "zone": "frontyard", "goldCost": 15000, "furballCost": 30, "comfort": 300 }
+  ]
+}

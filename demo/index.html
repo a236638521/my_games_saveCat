@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>喵喵救援队 · v0.4 塔防与首页大厅 Demo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="phone">
+  <!-- 顶部 HUD -->
+  <header class="hud">
+    <div class="hud-left">
+      <button class="hud-back" id="hudBackBtn" style="display:none">‹ 首页</button>
+      <div class="hud-title" id="hudTitle">🐾 喵喵救援队</div>
+    </div>
+    <div class="hud-right">
+      <span class="pill" id="hudCatsPill">🐱 <b id="catCount">1</b>/9</span>
+      <span class="pill" id="hudGoldPill">🪙 <b id="coin">200</b></span>
+      <button class="pill pill-btn hud-set" id="openSettingsBtn" title="设置">⚙️ 设置</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. 游戏特定首页（大厅 Hub） -->
+    <section id="view-lobby" class="view active">
+      <div class="lobby-quick">
+        <button class="q-chip" id="openSignBtn">📅 7日签到 <i id="signBadge">可签</i></button>
+        <button class="q-chip" id="openShopBtn">🛒 金币商店</button>
+        <button class="q-chip ad" id="watchAdBtn">📺 广告得汤姆 <b id="adProg">0/10</b></button>
+      </div>
+
+      <div class="lobby-showcase" id="lobbyShowcase">
+        <div class="showcase-scene" id="lobbyScene"></div>
+        <div class="showcase-bg"></div>
+        <div id="lobbyCatStage"></div>
+        <div class="lobby-quote" id="lobbyQuote">“今天也要保护好小奶猫！”</div>
+        <span class="showcase-tag" id="lobbySceneTag"></span>
+        <button class="switch-cat-btn" id="switchShowcaseBtn">🐱 换看板猫</button>
+      </div>
+
+      <div class="lobby-actions">
+        <button class="hero-btn home-hero" id="goHomeBtn">
+          <div class="hb-icon">🏡</div>
+          <div class="hb-text">
+            <b>进入猫咪家园</b>
+            <small id="homeSubTip">撸猫、喂食、装扮你的 2.5D 小院子</small>
+          </div>
+          <span class="hb-badge" id="offlineBadge">🪙 +0</span>
+        </button>
+
+        <button class="hero-btn td-hero" id="goTdBtn">
+          <div class="hb-icon">🛡️</div>
+          <div class="hb-text">
+            <b>剧情闯关 · 保卫小奶猫</b>
+            <small id="tdSubTip">保卫萝卜式萌猫塔防 · 第1章 1-1 ~ 1-3</small>
+          </div>
+          <span class="hb-go">出击 ▶</span>
+        </button>
+
+        <div class="lobby-grid3">
+          <button class="sub-card" id="goModesBtn">
+            <span class="sc-ico">🎮</span>
+            <div><b>更多玩法</b><small>小游戏</small></div>
+          </button>
+          <button class="sub-card" id="goDexBtn">
+            <span class="sc-ico">📖</span>
+            <div><b>猫咪图鉴</b><small id="dexSubTip">1 / 9</small></div>
+          </button>
+          <button class="sub-card set-card" id="lobbySettingsBtn">
+            <span class="sc-ico">⚙️</span>
+            <div><b>游戏设置</b><small>音效 / 音量</small></div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. 猫咪家园（可左右拖动全景 2.5D 大院子 + 互动喂食 + 大尺寸装饰品特效） -->
+    <section id="view-home" class="view">
+      <div class="yard-viewport" id="yardViewport">
+        <div class="yard-world" id="yardWorld">
+          <svg class="yard-bg" viewBox="0 0 740 760" preserveAspectRatio="xMinYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9FDcff"/><stop offset="1" stop-color="#DFF4FF"/></linearGradient>
+              <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A8E07A"/><stop offset="1" stop-color="#76C656"/></linearGradient>
+              <radialGradient id="sunpatch"><stop offset="0" stop-color="#FFF6B0" stop-opacity=".75"/><stop offset="1" stop-color="#FFF6B0" stop-opacity="0"/></radialGradient>
+            </defs>
+            <rect width="740" height="230" fill="url(#sky)"/>
+            <circle cx="330" cy="50" r="26" fill="#FFE27A"/>
+            <g fill="#fff" opacity=".9">
+              <ellipse cx="80" cy="60" rx="34" ry="12"/><ellipse cx="102" cy="52" rx="22" ry="12"/>
+              <ellipse cx="230" cy="88" rx="28" ry="9"/><ellipse cx="520" cy="64" rx="40" ry="13"/>
+              <ellipse cx="548" cy="55" rx="24" ry="12"/><ellipse cx="660" cy="90" rx="26" ry="9"/>
+            </g>
+            <!-- 远景山丘 -->
+            <path d="M 0 230 Q 140 175 290 230 T 580 230 T 740 230 Z" fill="#BCE897" opacity=".7"/>
+            <!-- 小屋 (2.5D) -->
+            <g transform="translate(226 88)">
+              <ellipse cx="78" cy="152" rx="84" ry="16" fill="rgba(55,95,35,.22)"/>
+              <polygon points="8,62 42,46 42,146 8,154" fill="#EBD8B7" stroke="#C8AD82" stroke-width="2"/>
+              <rect x="42" y="46" width="114" height="100" fill="#FFF6E5" stroke="#D5BC94" stroke-width="2"/>
+              <rect x="82" y="88" width="32" height="58" rx="4" fill="#B5835A" stroke="#8C5E39" stroke-width="2"/>
+              <circle cx="107" cy="118" r="2.5" fill="#FFD666"/>
+              <rect x="52" y="72" width="22" height="24" rx="3" fill="#8CD0F5" stroke="#B5835A" stroke-width="2.5"/>
+              <rect x="122" y="72" width="22" height="24" rx="3" fill="#8CD0F5" stroke="#B5835A" stroke-width="2.5"/>
+              <polygon points="-4,66 36,10 68,14 42,64" fill="#C9644A" stroke="#A64B35" stroke-width="2"/>
+              <polygon points="36,10 100,-2 164,54 42,64" fill="#E88065" stroke="#B8563E" stroke-width="2" stroke-linejoin="round"/>
+              <polygon points="42,64 164,54 164,61 42,71" fill="#C9644A"/>
+            </g>
+            <!-- 延展宽篱笆 -->
+            <g fill="#F4DCB8" stroke="#C49B70" stroke-width="1.8">
+              <rect x="0" y="182" width="246" height="10"/><rect x="0" y="208" width="246" height="10"/>
+              <rect x="380" y="182" width="360" height="10"/><rect x="380" y="208" width="360" height="10"/>
+              <g id="post">
+                <path d="M 10 236 L 10 168 L 18 160 L 26 168 L 26 236 Z"/>
+                <path d="M 26 168 L 30 165 L 30 233 L 26 236 Z" fill="#D4B085"/>
+              </g>
+              <use href="#post" x="28"/><use href="#post" x="56"/><use href="#post" x="84"/><use href="#post" x="112"/><use href="#post" x="140"/><use href="#post" x="168"/><use href="#post" x="196"/>
+              <use href="#post" x="380"/><use href="#post" x="415"/><use href="#post" x="450"/><use href="#post" x="485"/><use href="#post" x="520"/><use href="#post" x="555"/><use href="#post" x="590"/><use href="#post" x="625"/><use href="#post" x="660"/><use href="#post" x="695"/>
+            </g>
+            <rect y="230" width="740" height="530" fill="url(#grass)"/>
+            <!-- 左侧大树 -->
+            <ellipse cx="42" cy="242" rx="36" ry="11" fill="rgba(55,95,35,.2)"/>
+            <rect x="28" y="152" width="18" height="90" rx="5" fill="#9C6B43"/>
+            <rect x="38" y="154" width="8" height="86" rx="4" fill="#7D5231"/>
+            <circle cx="36" cy="138" r="42" fill="#5DB85B"/><circle cx="10" cy="160" r="26" fill="#4CA44C"/><circle cx="62" cy="160" r="26" fill="#4CA44C"/>
+            <circle cx="24" cy="120" r="18" fill="#7CD474" opacity=".6"/>
+            <!-- 右侧扩展园景：日光木露台 + 小花圃 + 凉棚区 -->
+            <g transform="translate(460 245)">
+              <ellipse cx="115" cy="108" rx="125" ry="26" fill="rgba(45,80,25,.16)"/>
+              <polygon points="10,48 210,48 232,102 -10,102" fill="#E6BC82" stroke="#B68449" stroke-width="2.2" stroke-linejoin="round"/>
+              <polygon points="-10,102 232,102 232,114 -10,114" fill="#BA8548" stroke="#9C6835" stroke-width="2"/>
+              <line x1="35" y1="48" x2="22" y2="102" stroke="#C59254" stroke-width="2"/>
+              <line x1="85" y1="48" x2="80" y2="102" stroke="#C59254" stroke-width="2"/>
+              <line x1="135" y1="48" x2="140" y2="102" stroke="#C59254" stroke-width="2"/>
+              <line x1="185" y1="48" x2="198" y2="102" stroke="#C59254" stroke-width="2"/>
+              <!-- 遮阳小伞 -->
+              <rect x="170" y="-26" width="8" height="95" rx="3" fill="#A06B3E"/>
+              <path d="M 118 -20 Q 174 -62 230 -20 Z" fill="#FF8C66" stroke="#C95635" stroke-width="2"/>
+              <path d="M 145 -20 Q 174 -58 203 -20 Z" fill="#FFF3D6"/>
+            </g>
+            <!-- 花坛 -->
+            <g transform="translate(615 470)">
+              <ellipse cx="38" cy="40" rx="54" ry="22" fill="#8C5D3C" stroke="#6B4226" stroke-width="2"/>
+              <ellipse cx="38" cy="36" rx="48" ry="18" fill="#5CB85C"/>
+              <circle cx="16" cy="32" r="7" fill="#FF7EA5"/><circle cx="16" cy="32" r="2.5" fill="#FFE066"/>
+              <circle cx="38" cy="24" r="8" fill="#FFD166"/><circle cx="38" cy="24" r="3" fill="#FF7043"/>
+              <circle cx="62" cy="34" r="7" fill="#FF92C2"/><circle cx="62" cy="34" r="2.5" fill="#FFE066"/>
+            </g>
+            <ellipse cx="240" cy="420" rx="135" ry="64" fill="url(#sunpatch)"/>
+            <ellipse cx="520" cy="440" rx="125" ry="58" fill="url(#sunpatch)"/>
+            <g stroke="#C2B194" stroke-width="2">
+              <ellipse cx="322" cy="274" rx="22" ry="10" fill="#CFC0A6"/><ellipse cx="322" cy="270" rx="22" ry="9" fill="#F2EAD9"/>
+              <ellipse cx="300" cy="324" rx="24" ry="11" fill="#CFC0A6"/><ellipse cx="300" cy="320" rx="24" ry="10" fill="#F2EAD9"/>
+              <ellipse cx="320" cy="379" rx="22" ry="10" fill="#CFC0A6"/><ellipse cx="320" cy="375" rx="22" ry="9" fill="#F2EAD9"/>
+              <ellipse cx="408" cy="396" rx="22" ry="10" fill="#CFC0A6"/><ellipse cx="408" cy="392" rx="22" ry="9" fill="#F2EAD9"/>
+              <ellipse cx="464" cy="426" rx="22" ry="10" fill="#CFC0A6"/><ellipse cx="464" cy="422" rx="22" ry="9" fill="#F2EAD9"/>
+            </g>
+            <!-- 默认角落纸箱（背景小件） -->
+            <g transform="translate(22 302)">
+              <ellipse cx="28" cy="66" rx="34" ry="10" fill="rgba(55,95,35,.22)"/>
+              <polygon points="0,20 34,28 34,68 0,58" fill="#D4955A" stroke="#9C6835" stroke-width="1.8" stroke-linejoin="round"/>
+              <polygon points="34,28 58,18 58,58 34,68" fill="#B87A42" stroke="#9C6835" stroke-width="1.8" stroke-linejoin="round"/>
+              <polygon points="0,20 24,10 58,18 34,28" fill="#7D4E26" stroke="#9C6835" stroke-width="1.8" stroke-linejoin="round"/>
+            </g>
+            <!-- 饭盆 -->
+            <g transform="translate(150 618)">
+              <ellipse cx="2" cy="14" rx="30" ry="9" fill="rgba(55,95,35,.22)"/>
+              <path d="M -26 0 Q 0 24 26 0 Z" fill="#3B8FEF" stroke="#256EC4" stroke-width="2"/>
+              <ellipse cx="0" cy="0" rx="26" ry="6" fill="#C2783A" stroke="#256EC4" stroke-width="1.6"/>
+              <circle cx="-8" cy="-1" r="2.6" fill="#945420"/><circle cx="2" cy="-2" r="2.6" fill="#945420"/><circle cx="10" cy="0" r="2.6" fill="#945420"/>
+            </g>
+          </svg>
+
+          <div id="yardDecor" class="yard-decor"></div>
+          <div id="yard"></div>
+        </div>
+      </div>
+
+      <!-- 离线收益与全景拖动提示 -->
+      <button class="offline-collect" id="collectOfflineBtn">🪙 领取离线收益 +0</button>
+      <div class="yard-pan-tip" id="yardPanTip">↔️ 左右拖动可逛全院（含买到的家具互动区）</div>
+
+      <!-- 家园底部互动面板 -->
+      <div class="home-dock">
+        <div class="hd-top">
+          <b id="homeSelName">🐾 大橘 · 橘猫</b>
+          <span id="homeSelInt">❤️ Lv1 (0/100)</span>
+          <span id="homeSelFull">🍗 饱腹 20（不限次）</span>
+        </div>
+        <div class="hd-btns">
+          <button class="hbtn" id="homePetBtn">✋ 抚摸</button>
+          <button class="hbtn" id="homeFeedKibble">🥣 猫粮(<b id="cntKibble">5</b>)</button>
+          <button class="hbtn" id="homeFeedStrip">🐟 猫条(<b id="cntStrip">1</b>)</button>
+          <button class="hbtn" id="homeFeedCan">🥫 罐头(<b id="cntCan">1</b>)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3A. 剧情闯关选关界面 -->
+    <section id="view-td-select" class="view">
+      <div class="td-sel-hero">
+        <div>
+          <div class="tsh-ch">第 1 章 · 萌猫巡逻小院</div>
+          <div class="tsh-sub">通关 1-3 解锁「银小妹 · 芭蕾飞针」</div>
+        </div>
+        <div class="tsh-stars" id="tdSelStars">★ 0/9</div>
+      </div>
+
+      <div class="td-sel-grid" id="tdSelectGrid"></div>
+
+      <button class="pbtn primary full td-sel-go" id="tdSelectStartBtn">🛡️ 选择出战猫咪</button>
+    </section>
+
+    <!-- 3B. 剧情闯关：保卫萝卜式萌猫塔防战局 -->
+    <section id="view-td" class="view">
+      <div class="td-hud-bar">
+        <div class="thb-left">
+          <span class="thb-stage" id="tdStageTag">1-1</span>
+          <span class="thb-wave" id="tdWave">🌊 1/4</span>
+        </div>
+        <div class="thb-stats">
+          <span class="res-badge fish" id="tdFish">🐟 220</span>
+          <span class="res-badge hp" id="tdHp">❤️ 10</span>
+        </div>
+        <div class="thb-right">
+          <button class="td-ico-btn spd" id="tdSpeedBtn" title="切换倍速">1×</button>
+          <button class="td-ico-btn set" id="tdSettingsBtn" title="暂停与设置">⚙️</button>
+        </div>
+      </div>
+
+      <div class="td-subbar">
+        <span id="tdLvlDesc">点击草地建塔 · 点纸箱/花盆集火爆鲜鱼</span>
+        <span class="obs-badge" id="tdObsLeft">📦 5/5</span>
+      </div>
+
+      <div class="td-board-wrap">
+        <canvas id="tdCanvas"></canvas>
+
+        <!-- 建塔轮盘 -->
+        <div id="tdBuildWheel" class="td-popup">
+          <div class="tp-head">建造猫咪塔</div>
+          <div id="tdBuildItems" class="build-items"></div>
+        </div>
+
+        <!-- 升级/撤回浮窗 -->
+        <div id="tdTowerMenu" class="td-popup">
+          <div class="tp-head" id="tmTitle">大橘</div>
+          <div class="tm-btns">
+            <button class="pbtn primary" id="tmUpgrade">⬆️ 升级</button>
+            <button class="pbtn" id="tmSell">🗑️ 撤回</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="td-battle-dock">
+        <div class="td-prop-bar" id="tdPropBar"></div>
+        <div class="td-ults" id="tdUltBar"></div>
+      </div>
+
+      <!-- 战局暂停 / 设置弹窗（点击右上角 ⚙️ 自动暂停） -->
+      <div id="tdPauseModal" class="win-modal">
+        <div class="win-card td-pause-card">
+          <div id="tdPauseMain">
+            <div class="pop-head">
+              <b>⏸️ 游戏已暂停</b>
+              <button class="icon-btn" id="tdPauseCloseBtn" title="继续战斗">✕</button>
+            </div>
+            <p class="pause-sub" id="tdPauseStageName">1-1 初遇小老鼠</p>
+            <button class="pbtn primary full" id="tdResumeBtn">▶ 继续游戏</button>
+            <div class="pause-actions">
+              <button class="pbtn" id="tdPauseRestartBtn">🔄 重新开始</button>
+              <button class="pbtn" id="tdPauseLobbyBtn">🏠 返回大厅</button>
+            </div>
+          </div>
+
+          <div id="tdPauseConfirm" style="display:none">
+            <h3 id="tdConfirmTitle">确认操作</h3>
+            <p class="lose-tip" id="tdConfirmMsg"></p>
+            <div class="win-actions">
+              <button class="pbtn" id="tdConfirmCancel">取消</button>
+              <button class="pbtn danger" id="tdConfirmOk">确定</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 塔防胜利弹窗 -->
+      <div id="tdWinModal" class="win-modal">
+        <div class="win-card">
+          <h3 id="tdWinTitle">🎉 胜利！</h3>
+          <div class="win-stars" id="tdWinStars"></div>
+          <div class="win-checks" id="tdWinChecks"></div>
+          <div class="win-rewards" id="tdWinRewards"></div>
+          <div class="win-actions">
+            <button class="pbtn" id="tdWinSelectBtn">🗺️ 选关</button>
+            <button class="pbtn" id="tdReplayBtn">再玩一次</button>
+            <button class="pbtn primary" id="tdNextBtn">下一关 →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 塔防失败/复活弹窗 -->
+      <div id="tdLoseModal" class="win-modal">
+        <div class="win-card">
+          <h3>😿 小奶猫被吓到啦</h3>
+          <p class="lose-tip">差一点就守住了！看广告可满血复活，并让全部怪物暂停行动 5 秒~</p>
+          <div class="win-actions">
+            <button class="pbtn" id="tdLoseSelectBtn">🗺️ 选关</button>
+            <button class="pbtn" id="tdLoseRetry">🔄 重试</button>
+            <button class="pbtn primary" id="tdReviveBtn">📺 复活(定身5秒)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. 更多玩法 & 小游戏扩展中心 -->
+    <section id="view-modes" class="view">
+      <div class="modes-head">
+        <h2>🎮 更多玩法与小游戏库</h2>
+        <p>采用统一钱包接口，后续新开发的小游戏可即插即用接入本页。</p>
+      </div>
+      <div class="modes-list">
+        <div class="mode-card live" id="launchCatchGameBtn">
+          <div class="mc-icon">🐟</div>
+          <div class="mc-body">
+            <b>接小鱼干大作战 <span class="tag-live">可试玩示例</span></b>
+            <small>15秒接鱼躲炸弹小游戏 · 结算直接发放金币到主钱包</small>
+            <em id="mgBestText">历史最高分：0</em>
+          </div>
+          <span class="mc-go">▶</span>
+        </div>
+
+        <div class="mode-card soon">
+          <div class="mc-icon">📆</div>
+          <div class="mc-body">
+            <b>每日守卫战 <span class="tag-soon">待开发</span></b>
+            <small>每日随机地图 + 指定推荐猫塔奖励 ×1.5</small>
+          </div>
+        </div>
+
+        <div class="mode-card soon">
+          <div class="mc-icon">🌙</div>
+          <div class="mc-body">
+            <b>无尽夜巡守卫 <span class="tag-soon">待开发</span></b>
+            <small>无限波次挑战，刷金币与测试极限塔防阵容</small>
+          </div>
+        </div>
+
+        <div class="mode-card slot">
+          <div class="mc-icon">➕</div>
+          <div class="mc-body">
+            <b>小游戏扩展插槽（预留）</b>
+            <small>后续开发的独立小游戏可注册至此，共享金币与猫咪存档</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 嵌入式小游戏示例视图 -->
+    <section id="view-minigame" class="view">
+      <div class="mg-top">
+        <span class="stat-pill" id="mgTimer">⏱️ 15.0s</span>
+        <span class="stat-pill" id="mgScore">🐟 得分 0</span>
+        <button class="pbtn" id="mgBackModes">退出</button>
+      </div>
+      <div class="mg-wrap">
+        <canvas id="mgCanvas"></canvas>
+        <div id="mgStartOverlay" class="mg-overlay open">
+          <div class="win-card">
+            <h3>🐟 接小鱼干大作战</h3>
+            <p class="lose-tip">左右拖动小猫接住 🐟 和 🥫，躲开 💣！<br>结束后金币直接打入主游戏钱包。</p>
+            <button class="pbtn primary" id="mgStartBtn">开始 15 秒挑战</button>
+          </div>
+        </div>
+        <div id="mgOverOverlay" class="mg-overlay">
+          <div class="win-card">
+            <h3>🎉 挑战结束！</h3>
+            <p class="lose-tip" id="mgResultText"></p>
+            <div class="win-actions">
+              <button class="pbtn" id="mgReplayBtn">再来一局</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. 猫咪图鉴 -->
+    <section id="view-dex" class="view">
+      <div class="dex-head">
+        <div>
+          <div class="dex-title">猫咪图鉴</div>
+          <div class="dex-sub" id="dexProgress">第一期 · 已解锁 <b>1</b>/9</div>
+        </div>
+        <label class="switch"><input type="checkbox" id="lockToggle"><span>显示未拥有</span></label>
+      </div>
+      <div class="legend" id="legend"></div>
+      <div class="dex-grid" id="dexGrid"></div>
+    </section>
+  </main>
+
+  <!-- 图鉴详情弹窗 -->
+  <div id="detail" class="sheet">
+    <div class="sheet-inner">
+      <div class="sheet-top">
+        <button class="icon-btn" id="prevBtn">‹</button>
+        <span id="dNo">No.001</span>
+        <button class="icon-btn" id="nextBtn">›</button>
+        <button class="icon-btn close" id="closeBtn">✕</button>
+      </div>
+      <div class="stage" id="stage">
+        <div class="stage-floor"></div>
+        <div id="stageCat"></div>
+        <div class="verb-badge" id="dVerb"></div>
+      </div>
+      <button class="action-btn" id="actionBtn">▶ 技能动作</button>
+      <div class="info">
+        <div class="name-row">
+          <h2 id="dName"></h2><span class="sex" id="dSex"></span>
+          <span class="acq" id="dAcq"></span>
+        </div>
+        <div class="breed" id="dBreed"></div>
+        <div class="tags" id="dTags"></div>
+        <div class="quote" id="dQuote"></div>
+        <div class="block"><h3>📖 图鉴介绍</h3><p id="dIntro"></p></div>
+        <div class="block"><h3>🎨 外形特征</h3><p id="dLook"></p></div>
+        <div class="block"><h3>🛡️ 塔防定位与技能 <small>（随亲密度解锁）</small></h3><div id="dSkills"></div></div>
+        <div class="block two">
+          <div><h3>🏡 家园特性</h3><p id="dHome"></p></div>
+          <div><h3>🍖 最爱食物</h3><p id="dFood"></p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7日签到弹窗 -->
+  <div id="modalSign" class="pop-modal">
+    <div class="pop-card sign-card">
+      <div class="pop-head"><b>📅 累计 7 日签到</b><button class="icon-btn" data-close="modalSign">✕</button></div>
+      <div class="pop-sub">每天签到必得金币补给，第 3 天、第 7 天直接送限定猫咪！</div>
+      <div class="sign-grid" id="signGrid"></div>
+      <button class="pbtn primary full" id="doSignBtn">立即签到领奖</button>
+    </div>
+  </div>
+
+  <!-- 金币商店弹窗 -->
+  <div id="modalShop" class="pop-modal">
+    <div class="pop-card">
+      <div class="pop-head"><b>🛒 金币商店</b><button class="icon-btn" data-close="modalShop">✕</button></div>
+      <div class="shop-tabs" id="shopTabs">
+        <button class="shop-tab active" data-tab="food">🍖 食物</button>
+        <button class="shop-tab" data-tab="cats">🐱 猫咪</button>
+        <button class="shop-tab" data-tab="td">🛡️ 道具</button>
+        <button class="shop-tab" data-tab="decor">🏡 装饰</button>
+      </div>
+      <div class="shop-list" id="shopList"></div>
+    </div>
+  </div>
+
+  <!-- 设置与存档弹窗 -->
+  <div id="modalSettings" class="pop-modal">
+    <div class="pop-card">
+      <div class="pop-head"><b>⚙️ 游戏设置</b><button class="icon-btn" data-close="modalSettings">✕</button></div>
+      <div class="set-sec-title">🔊 声音设置</div>
+      <div class="set-list">
+        <div class="set-row">
+          <div><b>游戏音效与提示音</b><small id="soundStatusTip">当前已开启</small></div>
+          <label class="toggle-pill">
+            <input type="checkbox" id="soundToggle" checked>
+            <i></i>
+          </label>
+        </div>
+        <div class="set-row vol-row" id="volumeRow">
+          <div class="vol-head">
+            <b>🎚️ 声音大小</b>
+            <span class="vol-val" id="volumeVal">70%</span>
+          </div>
+          <input type="range" id="volumeSlider" class="vol-slider" min="0" max="100" step="1" value="70">
+        </div>
+      </div>
+
+      <div class="set-sec-title">💾 试玩与单机存档</div>
+      <div class="set-list">
+        <label class="set-row">
+          <span>🧪 试玩全猫塔模式（9只猫直接可体验）</span>
+          <input type="checkbox" id="sandboxToggle" checked>
+        </label>
+        <div class="set-row">
+          <span>本地存档备份码</span>
+          <div>
+            <button class="pbtn sm" id="exportSaveBtn">导出</button>
+            <button class="pbtn sm" id="importSaveBtn">导入</button>
+          </div>
+        </div>
+        <textarea id="saveCodeBox" class="save-box" placeholder="点击导出生成备份码，或粘贴备份码后点导入"></textarea>
+        <button class="pbtn danger full" id="resetSaveBtn">🗑️ 重置本地试玩存档</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 选择出战猫咪弹窗（点击关卡后弹出，可下滑查看全部可选猫咪） -->
+  <div id="tdSquadModal" class="pop-modal">
+    <div class="pop-card squad-card">
+      <div class="pop-head">
+        <b id="tdSquadTitle">🐾 选择出战猫咪</b>
+        <button class="icon-btn" id="tdSquadCloseBtn">✕</button>
+      </div>
+      <div class="squad-meta">
+        <span class="pop-sub" id="tdSquadSub">默认勾选上次闯关猫咪（至少 1 只，最多 4 只）</span>
+        <span class="squad-cnt" id="tdSquadCount">0/4</span>
+      </div>
+      <div class="squad-list" id="tdSquadList"></div>
+      <div class="squad-foot">
+        <button class="pbtn" id="tdSquadCancelBtn">取消</button>
+        <button class="pbtn primary" id="tdSquadConfirmBtn">⚔️ 确认出战</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 选择看板猫弹窗 -->
+  <div id="modalShowcase" class="pop-modal">
+    <div class="pop-card">
+      <div class="pop-head">
+        <b>🐱 选择首页看板猫</b>
+        <button class="icon-btn" data-close="modalShowcase">✕</button>
+      </div>
+      <div class="showcase-modal-bar">
+        <span class="pop-sub" id="showcaseModalSub">点击已拥有的猫咪设为看板展示</span>
+        <label class="mini-sw"><input type="checkbox" id="showcasePreviewChk"><span>试玩可选未解锁</span></label>
+      </div>
+      <div class="showcase-grid" id="showcaseGrid"></div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+</div>
+
+<script src="js/cats.js"></script>
+<script src="js/art.js"></script>
+<script src="js/showcase.js"></script>
+<script src="js/store.js"></script>
+<script src="js/sfx.js"></script>
+<script src="js/td.js"></script>
+<script src="js/minigame.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

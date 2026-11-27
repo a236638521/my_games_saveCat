@@ -1,0 +1,105 @@
+{
+  "version": "0.4",
+  "mode": "pure_single_player_ad_only",
+  "currencies": {
+    "gold": {
+      "name": "金币",
+      "type": "soft_universal",
+      "initialAmount": 200,
+      "storageCap": 9999999,
+      "notes": "取消付费货币猫薄荷后唯一的通用货币"
+    },
+    "furball": {
+      "name": "猫毛球",
+      "type": "material",
+      "initialAmount": 0,
+      "source": "每日梳毛(+1~2)",
+      "sink": "合成毛毡类家具"
+    },
+    "blueprint": {
+      "name": "家具图纸",
+      "type": "material",
+      "initialAmount": 0,
+      "source": "关卡三星首通 / 访客留礼",
+      "sink": "解锁并制作主题家具"
+    }
+  },
+  "offlineIncome": {
+    "formula": "min(yardHourlyCap, sum_cats(basePerCat + stepPerLv * (lv - 1)))",
+    "basePerCatPerHour": 4,
+    "stepPerLvPerHour": 0.5,
+    "yardHourlyCap": 65,
+    "baseMaxHours": 8,
+    "maxHoursWithExpansions": 12,
+    "timeTamperPolicy": "monotone_local_clock_ignore_backward"
+  },
+  "stageRewards": {
+    "normalFirstClearGold": 25,
+    "chapterBossFirstClearGold": 60,
+    "repeatClearGold": 8,
+    "dailyRepeatGoldCap": 64,
+    "normalFirstIntimacy": 15,
+    "threeStarBonusIntimacy": 5,
+    "repeatIntimacy": 5,
+    "dailyFullIntimacyCapPerCat": 100
+  },
+  "homeDaily": {
+    "wishGoldPerCat": 20,
+    "wishGoldMaxCatsPerDay": 3,
+    "wishIntimacy": 30,
+    "petIntimacy": 10,
+    "petDailyLimit": 3,
+    "brushIntimacy": 15,
+    "brushDailyLimit": 1,
+    "teaserIntimacy": 20,
+    "teaserDailyLimit": 1,
+    "visitorAvgGold": 20,
+    "visitorDailyMax": 3
+  },
+  "feeding": {
+    "fullnessMin": 0,
+    "fullnessMax": 100,
+    "rejectThreshold": 80,
+    "decayPerHour": 10,
+    "favoriteMultiplier": 1.5,
+    "items": [
+      { "id": "kibble", "name": "猫粮", "goldCost": 30, "intimacy": 20, "fullness": 20 },
+      { "id": "strip", "name": "猫条", "goldCost": 100, "intimacy": 45, "fullness": 15 },
+      { "id": "can", "name": "猫罐头", "goldCost": null, "intimacy": 100, "fullness": 40, "obtainBy": ["每日广告1次", "成就", "亲密度里程碑", "三星宝箱"] }
+    ]
+  },
+  "signIn7Day": [
+    { "day": 1, "gold": 50, "item": { "id": "kibble", "count": 2 } },
+    { "day": 2, "gold": 80, "item": { "id": "strip", "count": 1 } },
+    { "day": 3, "gold": 100, "unlockCat": "jintiantian" },
+    { "day": 4, "gold": 120, "item": { "id": "can", "count": 1 } },
+    { "day": 5, "gold": 150, "item": { "id": "strip", "count": 2 } },
+    { "day": 6, "gold": 200, "item": { "id": "can", "count": 1 } },
+    { "day": 7, "gold": 300, "unlockCat": "feifei" }
+  ],
+  "dailyLoopSignIn": {
+    "goldAvgPerDay": 30,
+    "cycle": [20, 25, 30, 30, 35, 40, 50]
+  },
+  "shopUnlocks": {
+    "ali": { "catId": "ali", "goldCost": 8500 }
+  },
+  "adPlacements": {
+    "tomUnlockThreshold": 10,
+    "placements": [
+      { "id": "puzzle_hint", "name": "解谜提示", "dailyLimit": 99, "reward": "高亮下一步最优操作" },
+      { "id": "stage_skip", "name": "跳过关卡", "dailyLimit": 3, "reward": "1星跳过当前关" },
+      { "id": "stage_double", "name": "结算双倍", "dailyLimit": 5, "reward": "本关金币x2" },
+      { "id": "offline_double", "name": "离线翻倍", "dailyLimit": 3, "reward": "离线金币x2" },
+      { "id": "extra_meal", "name": "给猫加餐", "dailyLimitPerCat": 1, "reward": "饱腹度-30" },
+      { "id": "daily_can", "name": "每日罐头", "dailyLimit": 1, "reward": "猫罐头x1" },
+      { "id": "shop_refresh", "name": "商店刷新", "dailyLimit": 1, "reward": "刷新今日特惠家具" }
+    ]
+  },
+  "yardExpansions": [
+    { "id": "frontyard", "name": "前院", "unlockComfortLv": 1, "goldCost": 0, "offlineBonusHours": 0 },
+    { "id": "garden", "name": "小花园", "unlockComfortLv": 3, "goldCost": 1800, "offlineBonusHours": 1 },
+    { "id": "livingroom", "name": "阳光客厅", "unlockComfortLv": 6, "goldCost": 4500, "offlineBonusHours": 1 },
+    { "id": "rooftop", "name": "星空天台", "unlockComfortLv": 10, "goldCost": 9000, "offlineBonusHours": 2 }
+  ]
+}
